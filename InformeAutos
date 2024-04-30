@@ -1,0 +1,94 @@
+/**
+ * @file Autos.c
+ * @author Wilmer Pardo
+ * @brief 
+ * @version 0.1
+ * @date 2023-07-22
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+enum {SUELDO = 2500, UTILIDAD = 5,  COMISION = 250};
+#define LETRAVERDEL "\033[92m"
+#define LETRADEFAULT "\033[0m"
+
+struct Informe
+{
+    int autosVendidos, valorPorAuto, sueldoTotal, totalVentas, utilidad, auxiliar;
+};
+
+struct Informe ingresarValores();
+struct Informe calcularValores();
+void presentarValores(struct Informe informe);
+
+int main()
+{
+    struct Informe informe;
+    informe = ingresarValores();
+    informe = calcularValores();
+    presentarValores(informe);
+}
+
+struct Informe ingresarValores(){
+    struct Informe informe;
+    informe.auxiliar = SUELDO;
+    informe.totalVentas = 0;
+    informe.sueldoTotal = 0;
+    printf("Ingrese los autos vendidos:\n");
+    scanf("%d",&informe.autosVendidos);
+    for (int i = 0; i < informe.autosVendidos; i++)
+    {
+         printf("Ingrese el valor del %d auto vendido\n", i+1);
+         scanf("%d",&informe.valorPorAuto);
+         if (informe.valorPorAuto > 10000)
+         {
+            informe.sueldoTotal += COMISION;
+        }
+        else
+        {
+            informe.auxiliar = SUELDO;
+        }
+        informe.totalVentas += informe.valorPorAuto;
+    }
+    return informe;
+}
+
+struct Informe calcularValores(){
+    struct Informe informe;
+    informe.sueldoTotal =  (informe.sueldoTotal + informe.auxiliar) - SUELDO;
+    informe.auxiliar = informe.sueldoTotal;
+    informe.utilidad = (informe.totalVentas * UTILIDAD) / 100;
+    informe.sueldoTotal = informe.sueldoTotal + informe.utilidad;
+    return informe;
+}
+
+void presentarValores(struct Informe informe){
+    printf("\t\t\t\t%sInforme del Empleado%s\n", LETRAVERDEL, LETRADEFAULT);
+    printf("===============================================================================================\n");
+    printf("\t\tNumero Total de Autos Vendidos \t\t=====> %s %d %s\n", LETRAVERDEL, informe.autosVendidos, LETRADEFAULT);
+    printf("\t\tTotal de Dinero por los Autos Vendidos \t=====> %s %d %s\n", LETRAVERDEL, informe.totalVentas, LETRADEFAULT);
+    printf("\t\tSueldo Mensual \t\t\t\t=====> %s %d %s\n", LETRAVERDEL, SUELDO, LETRADEFAULT);
+    printf("\t\tUtilidad %d%%  \t\t\t\t=====> %s %d %s\n", UTILIDAD, LETRAVERDEL, informe.utilidad, LETRADEFAULT);
+    for (int i = 0; i < informe.autosVendidos; i++)
+    {
+        if (informe.auxiliar > 2500)
+            {
+                printf("\t\tComision por auto vendido \t\t=====> %s 250 %s\n", LETRAVERDEL, LETRADEFAULT);
+                 informe.auxiliar += - 250;
+            }
+            else
+            {
+              printf("\t\tComision por auto vendido \t\t=====> %s 0%s\n", LETRAVERDEL, LETRADEFAULT);
+            }
+    }
+    printf("\t\tSueldo a Pagar \t\t\t\t=====> %s %d %s\n",LETRAVERDEL, informe.sueldoTotal, LETRADEFAULT);
+    printf("=================================================================================================\n");
+
+    printf("Mejora y cuida tus autos con ECOAUTO");
+    
+
+}
+
