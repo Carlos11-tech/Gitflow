@@ -89,6 +89,8 @@ void presentarValores(struct Informe informe){
 
     printf("Mejora y cuida tus autos con ECOAUTO");
     
-
+    printf("Tu contraseña para abrir este programa es:")
+    scanf("%f 1234");
+    
 }
 
