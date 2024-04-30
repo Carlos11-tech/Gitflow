@@ -89,6 +89,6 @@ void presentarValores(struct Informe informe){
 
     printf("Mejora y cuida tus autos con ECOAUTO");
     
-
+    printf("Regresaste gracias por volver a este programa");
 }
 
